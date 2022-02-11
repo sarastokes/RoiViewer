@@ -1,10 +1,11 @@
 %% 20220106
-% - Square analysis
-% --
+% - Square analysis --
 
 
 
-% First, load in the raw fluorescence traces for each ROI and create a 3D matrix [R x T x N] where R is the number of ROIs, T is time and N is the number of repeats
+% First, load in the raw fluorescence traces for each ROI and create a 3D
+% matrix [R x T x N] where R is the number of ROIs, T is time and N is the
+% number of repeats
 signals = [];  % your data here
 
 
@@ -33,10 +34,14 @@ stim(2501:3000) = 1;
 stim(1) = [];  % first blank stim
 
 
-% View the responses. Arrow keys change the ROI shown. Try checking Z-score since that's what we'll do below. I usually smooth the responses quite a lot (50 or 100 in the Smooth box)
-app = RoiViewer(si gnals, bkgdWindow, [500 3000], stim);
+% View the responses. Arrow keys change the ROI shown. Try checking Z-score
+% since that's what we'll do below. I usually smooth the responses quite a
+% lot (50 or 100 in the Smooth box)
+app = RoiViewer(signals, bkgdWindow, [500 3000], stim);
 
-% Especially if you just want to know whether you have an ON or OFF cell, you can just compare the response to the stimulus and get your answer without any extra analysis. 
+% Especially if you just want to know whether you have an ON or OFF cell,
+% you can just compare the response to the stimulus and get your answer
+% without any extra analysis.
 
 
 %% Analysis outside the RoiViewer
@@ -52,12 +57,13 @@ figure(); hold on;
 plot(max(mean(signalsSmoothed,3), [], 2), '-ok');
 xlabel('ROIs');
 ylabel('SDs');
-% Anything over 2 SDs I call 'significant'
-% Between 1-2 SDs is 'weak', or maybe just noise
-% < 1 SD is probably not a response at all
+% Anything over 2 SDs I call 'significant' Between 1-2 SDs is 'weak', or
+% maybe just noise < 1 SD is probably not a response at all
 
-% It's still worth checking them out with the RoiViewer, especially the 'weak' ones, bc sometimes we get those weird intensity fluctuations that aren't really a response
-% e.g. ROI 75 in the S-cone dataset is a weak response, ROI 19 is probably not a real response
+% It's still worth checking them out with the RoiViewer, especially the
+% 'weak' ones, bc sometimes we get those weird intensity fluctuations that
+% aren't really a response e.g. ROI 75 in the S-cone dataset is a weak
+% response, ROI 19 is probably not a real response
 
 
 

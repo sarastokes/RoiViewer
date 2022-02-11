@@ -145,6 +145,13 @@ classdef RoiViewer < handle
                         allSignals(:, i), obj.lpCut, obj.xpts(2)-obj.xpts(1));
                 end
             end
+            
+            % Derivative if needed
+            if get(findByTag(obj.figureHandle, 'dfdt'), 'Value')
+                for i = 1:size(allSignals, 2)
+                    allSignals(:, i) = gradient(allSignals(:, i));
+                end
+            end
 
             % Smooth each signal if needed
             h = findobj(obj.figureHandle, 'Tag', 'Smooth');
@@ -155,12 +162,6 @@ classdef RoiViewer < handle
                 end
             end
             
-            % Derivative if needed
-            if get(findByTag(obj.figureHandle, 'dfdt'), 'Value')
-                for i = 1:size(allSignals, 2)
-                    allSignals(:, i) = gradient(allSignals(:, i));
-                end
-            end
             
             % Plot the individual signals, if necessary
             delete(findall(obj.signalAxis, 'Tag', 'SignalLine'));
